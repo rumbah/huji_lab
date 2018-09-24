@@ -1,1 +1,1 @@
-huji-lab
+huji_lab

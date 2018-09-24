@@ -1,8 +1,8 @@
-Metadata-Version: 2.1
+Metadata-Version: 1.1
 Name: huji-lab
-Version: 0.0.2
+Version: 0.0.3
 Summary: A physics lab data analysis package. Mostly a wrapper.
-Home-page: https://github.com/pypa/sampleproject
+Home-page: https://github.com/stormage2/huji_lab/
 Author: Agam Ankori
 Author-email: agam.ankori@mail.huji.ac.il
 License: UNKNOWN
@@ -15,4 +15,3 @@ Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Description-Content-Type: text/markdown
