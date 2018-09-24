@@ -1,5 +1,6 @@
-# Example Package
+# Huji-Lab (formerly: Agam's Lab)
 
-This is a simple example package. You can use
-[Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
-to write your content.
+Huji-Lab is a package that helps you save time in analyzing data gathered from experiments at the Huji Physics Lab Course.
+The package is mostly a wrapper for other packages, with more straight-to-the-point interface. 
+I customized the different functions to my own needs, but you are more than welcome to suggest improvements, point out bugs and contribute code bits and ideas.
+Contact me at: agam.ankori@mail.huji.ac.il
