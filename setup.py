@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/stormage2/huji-lab/",
-    #packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(),
 	install_requires=["numpy","scipy","pandas","matplotlib","sympy","seaborn","uncertainties","mplcursors","wolframalpha","analytic_wfm"],
     classifiers=[
         "Programming Language :: Python :: 3",
