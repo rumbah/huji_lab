@@ -7,7 +7,7 @@ from uncertainties import ufloat as _ufloat
 import mplcursors as _mplcursors
 from IPython import display as _dynamicdis
 import time as _time
-from Lab.Generators import expand_linspace as _expand_linspace
+from huji_lab.Generators import expand_linspace as _expand_linspace
 
 
 def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
