@@ -2,7 +2,7 @@ import matplotlib.pyplot as _plt
 from IPython.display import Image as _Image
 from IPython.display import display as _display
 from IPython.display import Markdown as _Markdown
-
+from IPython.display import Latex
 
 """
 # A dangerous override function, currently unimplemented.
@@ -37,8 +37,9 @@ def print_color_bold(string, color='black'):
     _display(text_line)
 
 
-def print_latex(text_to_print):
+def _print_latex_old(text_to_print):
     """
+    DEPRECATED, Please don't use
     Nicely prints LaTeX syntax, inline with python output.
     :param text_to_print:
     :return: None.
@@ -49,6 +50,10 @@ def print_latex(text_to_print):
     _plt.axis('off')
     ax.grid(False)
     _plt.figtext(0, 0, text_to_print, fontsize=40, bbox=dict(facecolor='white', linewidth=0))
+
+
+def print_latex(text_to_print):
+    Latex(text_to_print)
 
 
 def print_wolfram(wolf_query):
