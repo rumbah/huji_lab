@@ -2,7 +2,7 @@ import matplotlib.pyplot as _plt
 from IPython.display import Image as _Image
 from IPython.display import display as _display
 from IPython.display import Markdown as _Markdown
-from IPython.display import Latex
+from IPython.display import Latex as _Latex
 
 """
 # A dangerous override function, currently unimplemented.
@@ -53,7 +53,7 @@ def _print_latex_old(text_to_print):
 
 
 def print_latex(text_to_print):
-    Latex(text_to_print)
+    return _Latex(text_to_print)
 
 
 def print_wolfram(wolf_query):
