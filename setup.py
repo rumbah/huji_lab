@@ -1,11 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open(r"C:\Users\ankori\Documents\GitHub\huji_lab\README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="huji_lab",
-    version="0.0.6",
+    version="0.0.7",
     author="Agam Ankori",
     author_email="agam.ankori@mail.huji.ac.il",
     description="A physics lab data analysis package. Mostly a wrapper.",
@@ -20,3 +20,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 )
+
+input("All Done!")
