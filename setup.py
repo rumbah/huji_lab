@@ -20,5 +20,3 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 )
-
-input("All Done!")
