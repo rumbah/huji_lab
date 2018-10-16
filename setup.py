@@ -1,6 +1,6 @@
 import setuptools
 
-with open(r"C:\Users\ankori\Documents\GitHub\huji_lab\README.md", "r") as fh:
+with open(r"README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
