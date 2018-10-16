@@ -5,7 +5,7 @@ with open(r"README.md", "r") as fh:
 
 setuptools.setup(
     name="huji_lab",
-    version="0.0.7",
+    version="0.0.8",
     author="Agam Ankori",
     author_email="agam.ankori@mail.huji.ac.il",
     description="A physics lab data analysis package. Mostly a wrapper.",

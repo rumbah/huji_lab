@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: huji-lab
-Version: 0.0.7
+Version: 0.0.8
 Summary: A physics lab data analysis package. Mostly a wrapper.
 Home-page: https://github.com/stormage2/huji_lab/
 Author: Agam Ankori

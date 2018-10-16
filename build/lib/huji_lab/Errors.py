@@ -6,6 +6,27 @@ from sympy import symbols as _symbols
 from sympy import diff as _diff
 
 
+def chi_squared(xdata, ydata, popt, staterror, func):
+    """
+    Calculates the reduced x^2 of a data set.
+    :param xdata: Array of data representing the x axis.
+    :param ydata: Array of data representing the y axis.
+    :param popt: List of approximated parameters.
+    :param staterror: Array of statistical error corresponding to the ydata array.
+    :param func: Fitting function in lambda form (Exm. lambda x,a,b: a*x+b).
+    :return: The reduced chi-squared value.
+    """
+    xdata = _np.array(xdata)
+    ydata = _np.array(ydata)
+    staterror = _np.array(staterror)
+    chi_cal = _np.sum(((ydata - func(xdata, *popt)) / staterror) ** 2)
+    reduced_chi_squared = chi_cal / (len(xdata) - len(popt))
+    if hasattr(reduced_chi_squared , 'nominal_value'):
+        return reduced_chi_squared.nominal_value
+    else:
+        return reduced_chi_squared
+
+
 def measurements_deviation_calculator(measurements):
     """
     Calculates the statistical error of n identical measurements.
