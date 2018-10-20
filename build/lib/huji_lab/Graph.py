@@ -48,22 +48,26 @@ def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
     _plt.rc('text', usetex=False)
     fig, ax = _plt.subplots(figsize=size)
     tick_fine = 0
-
     x = _np.array(x)
     y = _np.array(y)
+    x_error = _np.array(x_error)
+    y_error = _np.array(y_error)
+    graph_dict = {}
 
     if graph_type is not None:
         popt, pcov = _curve_fit(graph_type, x, y, maxfev=100000)
         sigma_ab = _np.sqrt(_np.diagonal(pcov))  # type: _np.ndarray
         x_model = _expand_linspace(x.min(), x.max(), len(x) * 3)
         _plt.plot(x_model, graph_type(x_model, *popt), 'black')
-        _plt.errorbar(x, y, xerr=x_error, yerr=y_error, fmt='o', color='r', visible=False, alpha=0.6)
+        _plt.errorbar(x, y, xerr=x_error, yerr=y_error, fmt='s', color='b', visible=False, alpha=0.6,
+                      capsize=10, capthick=0.5, ecolor='k')
         if show_chi == True:
-            if y_error == 0:
+            if y_error.any() == 0:
                 print("No stat. error data provided, skipping chi squared calculation")
             else:
                 chi = _chi_squared(x, y, popt, y_error, graph_type)
                 title += "\n$\\chi^2 = %s$" %str(chi)
+                graph_dict['chi2'] = chi
         if error_fill_bet:
             bound_upper = graph_type(x_model, *(popt + sigma_ab))
             bound_lower = graph_type(x_model, *(popt - sigma_ab))
@@ -77,10 +81,13 @@ def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
                 text_res += ((graph_type.__code__.co_varnames[i + 1]) +
                              str((" = {:." + str(sig_digi) + "u}").format(_ufloat(popt[i], sigma_ab[i])) +
                                  coeff_text[i] + "\n"))
-            _plt.figtext(coeff_x, coeff_y, text_res, size=20, family='DejaVu Sans')
+            _plt.text(coeff_x, coeff_y, text_res[:-2], transform=ax.transAxes, fontsize=20,
+                      bbox=dict(boxstyle='round', facecolor='grey', alpha=0.5),
+                      family='DejaVu Sans')
         tick_fine = 1
 
-    _plt.scatter(x, y, facecolor='red', edgecolor='black', s=70, alpha=1)
+    _plt.scatter(x, y, facecolor='red', marker='s',edgecolor='black', s=70, alpha=1)
+    _sns.set_style("whitegrid")
     ax.set_title(title)
     ax.set_ylabel(y_title)
     ax.set_xlabel(x_title)
@@ -100,26 +107,29 @@ def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
         ax.set_xlim(x_model.min(), x_model.max())
     else:
         ax.set_xlim(_expand_linspace(x.min(), x.max(),len(x) * 3).min(),_expand_linspace(x.min(), x.max(),len(x) * 3).max())
-
     exec(extra_code_main)
+    graph_dict['main_graph'] = (fig, ax)
 
     if plot_residuals and graph_type is not None:
         residuals = y - graph_type(x, *popt)
         fig, ax = _plt.subplots(figsize=(20, 5))
-        _sns.residplot(x, residuals, color='r', scatter_kws={'s': 100})
-        ax.errorbar(x, residuals, xerr=resid_x_error, yerr=residuals * resid_y_error, fmt='none')
+        _plt.scatter(x, residuals, facecolor='red', marker='s', edgecolor='black', s=70, alpha=1)
+        ax.errorbar(x, residuals, xerr=resid_x_error, fmt='s', yerr=residuals * resid_y_error, marker='s',
+                    visible=False, alpha=0.6, capsize=10, capthick=0.5, ecolor='k')
         ax.set_xlim(x_model.min(), x_model.max())
         ax.set_ylim(residuals.min() - _np.abs(residuals.min()*0.5), residuals.max() + _np.abs(residuals.max()*0.5))
         ax.set_title("Residuals Plot of " + title)
         ax.set_ylabel(y_title)
         ax.set_xlabel(x_title)
+        graph_dict['resid_graph'] = (fig, ax)
     _mplcursors.cursor(hover=True)
 
     exec(extra_code_residuals)
     if tick_fine == 1:
-        return [(_ufloat(popt[i], sigma_ab[i])) for i in range(len(popt))]
+        graph_dict['params'] = [(_ufloat(popt[i], sigma_ab[i])) for i in range(len(popt))]
+        return graph_dict
     else:
-        return
+        return graph_dict
 
 
 def dynamic_draw(path, refresh_time=1, sheet='Sheet1'):
