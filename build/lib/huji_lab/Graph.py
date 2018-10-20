@@ -9,6 +9,7 @@ from IPython import display as _dynamicdis
 import time as _time
 from huji_lab.Generators import expand_linspace as _expand_linspace
 from huji_lab.Errors import chi_squared as _chi_squared
+from scipy.stats import _chi2
 
 
 def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
@@ -68,6 +69,7 @@ def graph_it(x, y, graph_type=None, x_error=0, y_error=0,
                 chi = _chi_squared(x, y, popt, y_error, graph_type)
                 title += "\n$\\chi^2 = %s$" %str(chi)
                 graph_dict['chi2'] = chi
+                graph_dict['p-value'] = 1 - chi2.cdf(chi,1)
         if error_fill_bet:
             bound_upper = graph_type(x_model, *(popt + sigma_ab))
             bound_lower = graph_type(x_model, *(popt - sigma_ab))
